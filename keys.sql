@@ -1,0 +1,27 @@
+ALTER TABLE Vehicles
+ADD CONSTRAINT vehicles_user_fk
+FOREIGN KEY (user_id) REFERENCES Users(user_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE Vehicles DROP FOREIGN KEY vehicles_user_fk; 
+
+--Перевірка зовнішніх ключів у таблиці Applications
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    CONSTRAINT_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'Applications';
+
+--Перевірка усіх зовнішніх ключів у базі
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    CONSTRAINT_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = 'mvs_service_center';
